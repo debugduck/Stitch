@@ -2,7 +2,7 @@
   include "connect_db.php";
   $dbname = "stich_db1";
   extractEventData($dbname);
-  echo json_encode($event_names);
+  #echo json_encode($event_names);
 ?>
 <html>
 <!--- Google Material Design API-->
@@ -214,13 +214,10 @@
   console.log(event_data);
   document.getElementById("debug").innerHTML = "Event data: " + '<br>';
   for(obj in event_data) {
-    document.getElementById("debug").innerHTML += obj + " : "+event_data[obj].name + " -> ";
-    for(i in obj) {
-      document.getElementById("debug").innerHTML += i + " : "+obj[i] + '<br>';
-    }
+    document.getElementById("debug").innerHTML += obj + " : Name: "+event_data[obj].name + ", Month: " +event_data[obj].month+", Day: " + event_data[obj].day+", Year: "+event_data[obj].year + ", Description: " + event_data[obj].description+'<br>';
   }
-  var event_names = <?php echo json_encode($event_names); ?>;
-  console.log(event_names);
+  //var event_names = <?php echo json_encode($event_names); ?>;
+  //console.log(event_names);
 </script>
 </body>
 </html>
