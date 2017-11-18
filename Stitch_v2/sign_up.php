@@ -3,7 +3,6 @@
   include "connect_db.php";
   if(isset($_POST['submit_signup'])) {
     connectToMySQLDatabase($dbname='stich_db1');
-
   //Retrieve data from form
   #$firstname = $_POST["firstname"];
   #$lastname = $_POST['lastname'];
@@ -11,7 +10,7 @@
   $username = substr($email,0,strrpos($email,"@"));
   $password = $_POST['password'];
   $password_encrypted = md5($_POST['password']);
-
+  echo $email; 
   $table_name = 'user_login_info';
   //Insert data into table if it doe not already exist
   $query = "SELECT * from $table_name where username ='$username";
@@ -73,7 +72,8 @@
   
   function checkPassword(password) {
     var passw_regex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,20}$/;  
-    return password.match(passw_regex);
+    //return password.match(passw_regex);
+    return true; //for debugging purposes
   }
 </script>
 <class="mdl-layout mdl-js-layout">
@@ -103,7 +103,7 @@
   <h5> Sign up with your university email to see what's going on around campus. </h5>
     
     <!-- Simple Textfield -->
-    <form action="#" method="post" onsubmit="return validateSignupForm()">
+    <form action="sign_up.php" method="post" onsubmit="return validateSignupForm()">
       <div class="mdl-textfield mdl-js-textfield">
         <input class="mdl-textfield__input" type="text" id="email">
         <label class="mdl-textfield__label" for="email">GMu email</label>
@@ -123,7 +123,7 @@
       <br>
         <!-- Colored FAB button -->
     <!-- Accent-colored raised button -->
-    <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent" id="submit_signup">
+    <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent" id="submit_signup" type="submit">
       Sign Up
     </button>
     <br>

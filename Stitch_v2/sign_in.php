@@ -55,36 +55,6 @@
         return "";
     }
   
-  function validateSignupForm() {
-    //validate email address
-    if(!validateEmail(document.getElementById("email").value))
-    {
-      alert("You have entered an invalid email address!");
-      return false;
-    }
-    //validate password
-    var password1 = document.getElementById("password").value;
-    var password2 = document.getElementById("confirm_password").value;
-    if(password1 != password2) {
-      alert("Passwords do not match!");
-      return false;
-    }
-    if(!checkPassword(password1)) {
-      alert('Invalid password! Must be  between 6 to 20 characters with at least one numeric digit, one uppercase, and one lowercase letter');
-      return false;
-    }
-    return true;
-  }
-  
-  function validateEmail(email_address)   {
-    var email_regex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
-    return email_regex.test(email_address);
-  }  
-  
-  function checkPassword(password) {
-    var passw_regex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,20}$/;  
-    return password.match(passw_regex);
-  }
   </script>
 <class="mdl-layout mdl-js-layout">
   <header class="mdl-layout__header mdl-layout__header--scroll">

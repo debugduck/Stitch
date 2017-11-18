@@ -54,7 +54,7 @@
 <div id="debug"> 
 </div>
 <h1>Events</h1>
-  <button class="mdl-button mdl-js-button mdl-button--fab mdl-button--colored add-event-button" onclick="window.location.href='create_event.html'">
+  <button class="mdl-button mdl-js-button mdl-button--fab mdl-button--colored add-event-button" onclick="window.location.href='create_event.php'">
     <i class="material-icons">add</i>
 </button>
   <!-- Colored FAB button -->
