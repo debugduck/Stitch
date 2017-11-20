@@ -11,11 +11,10 @@
 <script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
 <head>
 <style>
- .add-event-button {
-  margin-left: 1450px;
-  }
 .demo-card-wide.mdl-card {
   width: 512px;
+  margin-left: 50px;
+  margin-bottom: 50px;
 }
 .demo-card-wide > .mdl-card__title {
   color: #fff;
@@ -24,6 +23,9 @@
 }
 .demo-card-wide > .mdl-card__menu {
   color: #fff;
+}
+.events-heading {
+	margin-left: 50px;
 }
 </style>
 
@@ -53,169 +55,30 @@
 <body>
 <div id="debug"> 
 </div>
-<h1>Events</h1>
-  <button class="mdl-button mdl-js-button mdl-button--fab mdl-button--colored add-event-button" onclick="window.location.href='create_event.php'">
-    <i class="material-icons">add</i>
-</button>
-  <!-- Colored FAB button -->
-<div class="mdl-grid">
-  <div class="mdl-cell mdl-cell--4-col">
-    
-    
-<div class="demo-card-wide mdl-card mdl-shadow--2dp">
-  <div class="mdl-card__title">
-    <h2 class="mdl-card__title-text">Welcome</h2>
-  </div>
-  <div class="mdl-card__supporting-text">
-    Soccer Game <br />
-    Tuesday November 7th, 2017 | 10 am
-  </div>
-  <div class="mdl-card__actions mdl-card--border">
-    <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">
-      See Details
-    </a>
-  </div>
-  <div class="mdl-card__menu">
-    <button class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect">
-      <i class="material-icons">share</i>
-    </button>
-  </div>
+<div>
+	<div class="events-heading">
+	<h1>Events
+	<button class="mdl-button mdl-js-button mdl-button--fab mdl-button--colored add-event-button" onclick="window.location.href='create_event.php'">
+	<i class="material-icons">add</i>
+	</button>
+	</h1>
+	</div>
+	<div id="events-body">
+	</div>
 </div>
-  
-  
-  </div>
-  <div class="mdl-cell mdl-cell--4-col">
-    
-    
-<div class="demo-card-wide mdl-card mdl-shadow--2dp">
-  <div class="mdl-card__title">
-    <h2 class="mdl-card__title-text">Welcome</h2>
-  </div>
-  <div class="mdl-card__supporting-text">
-    Northern Neck Destress Fest <br />
-    Tuesday November 7th, 2017 | 8 pm
-  </div>
-  <div class="mdl-card__actions mdl-card--border">
-    <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">
-      See Details
-    </a>
-  </div>
-  <div class="mdl-card__menu">
-    <button class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect">
-      <i class="material-icons">share</i>
-    </button>
-  </div>
-</div>
-    
-  </div>
-  <div class="mdl-cell mdl-cell--4-col">
-    
-    
-<div class="demo-card-wide mdl-card mdl-shadow--2dp">
-  <div class="mdl-card__title">
-    <h2 class="mdl-card__title-text">Welcome</h2>
-  </div>
-  <div class="mdl-card__supporting-text">
-    Dance Practice <br />
-    Thursday November 9th, 2017 | 5:30 pm
-  </div>
-  <div class="mdl-card__actions mdl-card--border">
-    <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">
-      See Details
-    </a>
-  </div>
-  <div class="mdl-card__menu">
-    <button class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect">
-      <i class="material-icons">share</i>
-    </button>
-  </div>
-</div>
-    
-    
-  </div>
-  
-  
-  <div class="mdl-grid">
-  <div class="mdl-cell mdl-cell--4-col">
-    
-    
-<div class="demo-card-wide mdl-card mdl-shadow--2dp">
-  <div class="mdl-card__title">
-    <h2 class="mdl-card__title-text">Welcome</h2>
-  </div>
-  <div class="mdl-card__supporting-text">
-    Going Running <br />
-    Friday November 3rd, 2017 | 8:30 am
-  </div>
-  <div class="mdl-card__actions mdl-card--border">
-    <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">
-      See Details
-    </a>
-  </div>
-  <div class="mdl-card__menu">
-    <button class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect">
-      <i class="material-icons">share</i>
-    </button>
-  </div>
-</div>
-  
-  
-  </div>
-  <div class="mdl-cell mdl-cell--4-col">
-    
-    
-<div class="demo-card-wide mdl-card mdl-shadow--2dp">
-  <div class="mdl-card__title">
-    <h2 class="mdl-card__title-text">Welcome</h2>
-  </div>
-  <div class="mdl-card__supporting-text">
-    ECE 301 Study Session <br />
-    Wednesday November 1st, 2017 | 6:45 pm
-  </div>
-  <div class="mdl-card__actions mdl-card--border">
-    <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">
-      See Details
-    </a>
-  </div>
-  <div class="mdl-card__menu">
-    <button class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect">
-      <i class="material-icons">share</i>
-    </button>
-  </div>
-</div>
-    
-  </div>
-  <div class="mdl-cell mdl-cell--4-col">
-    
-    
-<div class="demo-card-wide mdl-card mdl-shadow--2dp">
-  <div class="mdl-card__title">
-    <h2 class="mdl-card__title-text">Welcome</h2>
-  </div>
-  <div class="mdl-card__supporting-text">
-    Halloween Party at Rogers <br />
-     Tuesday October 31st, 2017 | 7 pm
-  </div>
-  <div class="mdl-card__actions mdl-card--border">
-    <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">
-      See Details
-    </a>
-  </div>
-  <div class="mdl-card__menu">
-    <button class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect">
-      <i class="material-icons">share</i>
-    </button>
-  </div>
-</div>
-</div>
-</div>
+
 <script type="text/javascript">
   var event_data = <?php echo json_encode($event_data); ?>;
   console.log(event_data);
-  document.getElementById("debug").innerHTML = "Event data: " + '<br>';
+  //document.getElementById("debug").innerHTML = "Event data: " + '<br>';
   for(obj in event_data) {
-    document.getElementById("debug").innerHTML += obj + " : Name: "+event_data[obj].name + ", Month: " +event_data[obj].month+", Day: " + event_data[obj].day+", Year: "+event_data[obj].year + ", Description: " + event_data[obj].description+'<br>';
+    //document.getElementById("debug").innerHTML += obj + " : Name: "+event_data[obj].name + ", Month: " +event_data[obj].month+", Day: " + event_data[obj].day+", Year: "+event_data[obj].year + ", Description: " + event_data[obj].description+'<br>';
+	cardDiv = "<div class=\"demo-card-wide mdl-card mdl-shadow--2dp\" id=\"event-card-" + obj + "\"> <div class=\"mdl-card__title\"> </div> <div class=\"mdl-card__supporting-text\" id=\"event-text-" + obj + "\"> </div> <div class=\"mdl-card__actions mdl-card--border\"> <a class=\"mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect\"> See Details </a> </div> <div class=\"mdl-card__menu\"> <button class=\"mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect\"> <i class=\"material-icons\">share</i> </button> </div> </div>";
+	document.getElementById("events-body").innerHTML += cardDiv;
+	cardText = "event-text-" + obj;
+	document.getElementById(cardText).innerHTML += event_data[obj].name + " | " + event_data[obj].month + "/" + event_data[obj].day + "/" + event_data[obj].year;
   }
+
   //var event_names = <?php echo json_encode($event_names); ?>;
   //console.log(event_names);
 </script>
