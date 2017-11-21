@@ -3,7 +3,7 @@
   
   include "connect_db.php";
   if(isset($_POST['submit_create'])) {
-    connectToMySQLDatabase($dbname='stich_db1');
+    connectToMySQLDatabase();
     //Retrieve data from form
     $name = $_POST['name'];
     $description = $_POST['description'];

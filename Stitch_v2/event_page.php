@@ -1,11 +1,10 @@
 <?php
   include "connect_db.php";
-  $dbname = "stich_db1";
   session_start();
   $user = "";
   if(isset($_SESSION['login_user'])){
     $user = $_SESSION['login_user'];
-    extractEventData($dbname);
+    extractEventData();
   }
   #echo json_encode($event_names);
 ?>
@@ -51,7 +50,7 @@
         <a class="mdl-navigation__link" href="index.php">Home</a>
         <a class="mdl-navigation__link" href="event_page.php">View Events</a>
         <a class="mdl-navigation__link" href="about.html">About</a>
-        <a class="mdl-navigation__link" href="sign_in.php">Sign In</a>
+        <a id="sign_in" class="mdl-navigation__link" href="sign_in.php">Sign In</a>
       </nav>
     </div>
   </header>
@@ -76,12 +75,13 @@
 	<div id="events-body">
 	</div>
 </div>
-
+<script type="text/javascript" src="utility.js"></script>
 <script type="text/javascript">
   var user = <?php echo json_encode($user); ?>;
-  if(user.length > 0) {
-    document.getElementById("header").innerHTML += ": "+user;
+  if(!checkUserLoggedIn(user)) {
+    document.getElementById("events-body").innerHTML = "Must be logged in with valid Mason credentials to view Events!";
   }
+
   var event_data = <?php echo json_encode($event_data); ?>;
   var current_div = 0;
   console.log(event_data);

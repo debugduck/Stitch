@@ -15,7 +15,7 @@
 		// 	}
 		// }
 		
-		connectToMySQLDatabase($dbname='stich_db1');	
+		connectToMySQLDatabase();	
 		$username = substr($email,0,strrpos($email,"@"));
 		$query = "SELECT * from user_login_info where username='$username'";
 		$result = mysqli_query($conn, $query);

@@ -1,4 +1,8 @@
 <?php
+	$dbname = "stich_db1";
+	$servername = "localhost";
+	$username = "root";
+	$password_root = "";
 	// Create connection
 	$conn = NULL;
 	$emails = Array();
@@ -10,8 +14,8 @@
 	// $dbname = 'formDB_test1';
 	// extractEmailsFromDB($dbname);
 	// var_dump($emails);
-	function extractEmailsFromDB($dbname) {
-		global $conn, $emails;
+	function extractEmailsFromDB() {
+		global $conn, $emails, $dbname;
 		connectToMySQLDatabase($dbname);
 		$result = mysqli_query($conn,"SELECT username FROM user_login_info");
 		if(!$result) {
@@ -24,8 +28,8 @@
 		}
 	}
 
-	function extractEventData($dbname) {
-		global $conn, $event_data, $event_names, $event_dates, $event_desc;
+	function extractEventData() {
+		global $dbname, $conn, $event_data, $event_names, $event_dates, $event_desc;
 		connectToMySQLDatabase($dbname);
 		$result = mysqli_query($conn,"SELECT * FROM events");
 		if(!$result) {
@@ -41,11 +45,8 @@
 
 	}
 
-	function connectToMySQLDatabase($dbname) {
-		global $conn;
-		$servername = "localhost";
-		$username = "root";
-		$password_root = "";
+	function connectToMySQLDatabase() {
+		global $conn, $dbname, $servername, $username, $password_root;
 		$conn = mysqli_connect($servername,$username,$password_root);
 		//Check connection
 		if (!$conn) {
