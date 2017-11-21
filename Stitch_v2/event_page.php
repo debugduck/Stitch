@@ -12,7 +12,7 @@
 <head>
 <style>
 .demo-card-wide.mdl-card {
-  width: 512px;
+  width: 300px;
   margin-left: 50px;
   margin-bottom: 50px;
 }
@@ -26,6 +26,9 @@
 }
 .events-heading {
 	margin-left: 50px;
+}
+.join-button {
+	margin-left: 70px;
 }
 </style>
 
@@ -72,11 +75,30 @@
   console.log(event_data);
   //document.getElementById("debug").innerHTML = "Event data: " + '<br>';
   for(obj in event_data) {
+	console.log(obj);
     //document.getElementById("debug").innerHTML += obj + " : Name: "+event_data[obj].name + ", Month: " +event_data[obj].month+", Day: " + event_data[obj].day+", Year: "+event_data[obj].year + ", Description: " + event_data[obj].description+'<br>';
-	cardDiv = "<div class=\"demo-card-wide mdl-card mdl-shadow--2dp\" id=\"event-card-" + obj + "\"> <div class=\"mdl-card__title\"> </div> <div class=\"mdl-card__supporting-text\" id=\"event-text-" + obj + "\"> </div> <div class=\"mdl-card__actions mdl-card--border\"> <a class=\"mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect\"> See Details </a> </div> <div class=\"mdl-card__menu\"> <button class=\"mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect\"> <i class=\"material-icons\">share</i> </button> </div> </div>";
+	cardDiv = "<div class=\"demo-card-wide mdl-card mdl-shadow--2dp\" id=\"event-card-" + obj + "\"> <div class=\"mdl-card__title\"> </div> <div class=\"mdl-card__supporting-text\" id=\"event-text-" + obj + "\"> </div> <div class=\"mdl-card__actions mdl-card--border\" id=\"event-actions-" + obj + "\"> <button id=\"expand-btn-" + obj + "\" onClick=\"showDetails(this)\"class=\"mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect \" value=\"" + obj + "\"> <i class=\"material-icons\">expand_more</i></button></div> <div class=\"mdl-card__menu\"> <button class=\"mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect\"> <i class=\"material-icons\">share</i> </button> </div> </div>";
 	document.getElementById("events-body").innerHTML += cardDiv;
 	cardText = "event-text-" + obj;
-	document.getElementById(cardText).innerHTML += event_data[obj].name + " | " + event_data[obj].month + "/" + event_data[obj].day + "/" + event_data[obj].year;
+	document.getElementById(cardText).innerHTML += event_data[obj].name + " | " + event_data[obj].month + "/" + event_data[obj].day + "/" + event_data[obj].year + " | " + obj;
+  }
+  
+  function showDetails(element) {
+	// (fixed) BUG HERE: you're assigning the expandLess value to obj, which is 2 since the loop has finished
+	console.log("Card number: " + element.value);
+	document.getElementById("expand-btn-" + element.value).style.display = 'none';
+	expandLess = "<button id=\"expand-less-btn-" + element.value + "\" onClick=\"hideDetails(this)\"class=\"mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect \" value=\"" + element.value + "\"> <i class=\"material-icons\">expand_less</i></button>";
+    //expandLess = "<button id=\"expand-btn-" + obj + "\" onClick=\"showDetails(this)\"class=\"mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect \" value=\"" + obj + "\"> <i class=\"material-icons\">expand_more</i></button>
+	document.getElementById("event-actions-" + element.value).innerHTML += "Details:" + '<br>' + event_data[element.value].description + '<br><br>' + expandLess + "<button class=\"join-button mdl-button mdl-js-button mdl-button--colored mdl-button--raised mdl-js-ripple-effect\"> Join </button>";
+	
+  }
+  
+  function hideDetails(element) {
+	console.log(element.value);
+	expandMore = "<button id=\"expand-btn-" + element.value + "\" onClick=\"showDetails(this)\"class=\"mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect \" value=\"" + element.value + "\"> <i class=\"material-icons\">expand_more</i></button>";
+	document.getElementById("event-actions-" + element.value).innerHTML = expandMore;
+	//document.getElementById("events-body").innerHTML += expandMore;
+	
   }
 
   //var event_names = <?php echo json_encode($event_names); ?>;
