@@ -10,12 +10,15 @@
   $username = substr($email,0,strrpos($email,"@"));
   $password = $_POST['password'];
   $password_encrypted = md5($_POST['password']);
-  echo $email; 
+  #echo $email; 
   $table_name = 'user_login_info';
   //Insert data into table if it doe not already exist
-  $query = "SELECT * from $table_name where username ='$username";
+  $query = "SELECT * from $table_name where username ='$username'";
   $result = mysqli_query($conn, $query);
-  if(mysqli_num_rows($result) > 0)
+  #var_dump($result);
+  if(!$result) {
+      $signup_message = "Error accessing table $table_name: ".mysqli_error($conn);
+  } else if (mysqli_num_rows($result) > 0)
   {
     $signup_message = "There is already an acocunt associated with this e-mail address: $email";
   } else {
@@ -72,8 +75,8 @@
   
   function checkPassword(password) {
     var passw_regex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,20}$/;  
-    //return password.match(passw_regex);
-    return true; //for debugging purposes
+    return password.match(passw_regex);
+    //return true; //for debugging purposes
   }
 </script>
 <class="mdl-layout mdl-js-layout">
@@ -85,10 +88,10 @@
       <div class="mdl-layout-spacer"></div>
       <!-- Navigation -->
       <nav class="mdl-navigation">
-        <a class="mdl-navigation__link" href="index.html">Home</a>
-        <a class="mdl-navigation__link" href="event_page.html">View Events</a>
+        <a class="mdl-navigation__link" href="index.php">Home</a>
+        <a class="mdl-navigation__link" href="event_page.php">View Events</a>
         <a class="mdl-navigation__link" href="about.html">About</a>
-        <a class="mdl-navigation__link" href="sign_in.html">Sign In</a>
+        <a class="mdl-navigation__link" href="sign_in.php">Sign In</a>
       </nav>
     </div>
   </header>
@@ -105,25 +108,25 @@
     <!-- Simple Textfield -->
     <form action="sign_up.php" method="post" onsubmit="return validateSignupForm()">
       <div class="mdl-textfield mdl-js-textfield">
-        <input class="mdl-textfield__input" type="text" id="email">
+        <input class="mdl-textfield__input" type="text" id="email" name="email">
         <label class="mdl-textfield__label" for="email">GMu email</label>
       </div>
       <br>
       <div class="mdl-textfield mdl-js-textfield">
-        <input class="mdl-textfield__input" type="password" id="password">
+        <input class="mdl-textfield__input" type="password" id="password" name="password">
         <label class="mdl-textfield__label" for="password">password</label>
         <span class="mdl-textfield__error">Input is not a valid password</span>
       </div>
       <br>
       <div class="mdl-textfield mdl-js-textfield">
-        <input class="mdl-textfield__input" type="password" id="confirm_password">
+        <input class="mdl-textfield__input" type="password" id="confirm_password" name="confirm_password">
         <label class="mdl-textfield__label" for="confirm_password">confirm password</label>
         <span class="mdl-textfield__error">Input is not a valid password</span>
       </div>
       <br>
         <!-- Colored FAB button -->
     <!-- Accent-colored raised button -->
-    <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent" id="submit_signup" type="submit">
+    <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent" id="submit_signup" name="submit_signup" type="submit">
       Sign Up
     </button>
     <br>

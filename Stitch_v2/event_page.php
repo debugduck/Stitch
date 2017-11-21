@@ -1,7 +1,12 @@
 <?php
   include "connect_db.php";
   $dbname = "stich_db1";
-  extractEventData($dbname);
+  session_start();
+  $user = "";
+  if(isset($_SESSION['login_user'])){
+    $user = $_SESSION['login_user'];
+    extractEventData($dbname);
+  }
   #echo json_encode($event_names);
 ?>
 <html>
@@ -38,7 +43,7 @@
   <header class="mdl-layout__header mdl-layout__header--scroll">
     <div class="mdl-layout__header-row">
       <!-- Title -->
-      <span class="mdl-layout-title" href="index.html">Stitch</span>
+      <span class="mdl-layout-title" href="index.html" id="header">Stitch</span>
       <!-- Add spacer, to align navigation to the right -->
       <div class="mdl-layout-spacer"></div>
       <!-- Navigation -->
@@ -73,6 +78,10 @@
 </div>
 
 <script type="text/javascript">
+  var user = <?php echo json_encode($user); ?>;
+  if(user.length > 0) {
+    document.getElementById("header").innerHTML += ": "+user;
+  }
   var event_data = <?php echo json_encode($event_data); ?>;
   var current_div = 0;
   console.log(event_data);
@@ -92,8 +101,7 @@
 	console.log("Card number: " + element.value);
 	document.getElementById("expand-btn-" + element.value).style.display = 'none';
 	expandLess = "<button id=\"expand-less-btn-" + element.value + "\" onClick=\"hideDetails(this)\"class=\"mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect \" value=\"" + element.value + "\"> <i class=\"material-icons\">expand_less</i></button>";
-	document.getElementById("event-actions-" + element.value).innerHTML += "Details:" + '<br>' + event_data[element.value].description + '<br><br>' + expandLess + "<button class=\"join-button mdl-button mdl-js-button mdl-button--accent mdl-button--raised mdl-js-ripple-effect\"> Join </button>";
-	
+	document.getElementById("event-actions-" + element.value).innerHTML += "Details:" + '<br>' + event_data[element.value].description + '<br><br>' + expandLess + "<button onClick=\"joinEvent("+element.value+")\"class=\"join-button mdl-button mdl-js-button mdl-button--accent mdl-button--raised mdl-js-ripple-effect\"> Join </button>";
   }
   
   function hideDetails(element) {
@@ -101,6 +109,11 @@
 	expandMore = "<button id=\"expand-btn-" + element.value + "\" onClick=\"showDetails(this)\"class=\"mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect \" value=\"" + element.value + "\"> <i class=\"material-icons\">expand_more</i></button>";
 	document.getElementById("event-actions-" + element.value).innerHTML = expandMore;
 	
+  }
+
+  function joinEvent(val){
+    console.log(event_data[val].id);
+    //join event
   }
 
   //var event_names = <?php echo json_encode($event_names); ?>;

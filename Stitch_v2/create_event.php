@@ -1,3 +1,41 @@
+<?php
+  $signup_message = '';
+  
+  include "connect_db.php";
+  if(isset($_POST['submit_create'])) {
+    connectToMySQLDatabase($dbname='stich_db1');
+    //Retrieve data from form
+    $name = $_POST['name'];
+    $description = $_POST['description'];
+    $date = $_POST['date'];
+    $month = (int) substr($date, 0,2);
+    $day = (int) substr($date, 2,2);
+    $year = (int) substr($date, 4,4);
+    #echo $month,' ',$day,' ',$year,' ';
+    $table_name = 'events';
+    //Insert data into table if it doe not already exist
+    $query = "SELECT * from $table_name where name ='$name'";
+    $result = mysqli_query($conn, $query);
+    #var_dump($result);
+    if(!$result) {
+      $signup_message = "Error accessing table $table_name: ".mysqli_error($conn);
+    } 
+    else if (mysqli_num_rows($result) > 0) {
+      $signup_message = "There is already an event with this name: $name";
+    } else {
+      $query = "INSERT INTO $table_name (name,day,month,year,description) 
+          VALUES ('$name','$day','$month','$year','$description')";
+      $result = mysqli_query($conn, $query);
+      if(!$result) {
+        $signup_message = "Error inserting new event into the database: ".mysqli_error($conn);
+      } else {
+         $signup_message = "Event created successfully!";
+        #header("location: event_page.php"); // Redirecting to events page
+      }
+    }
+    mysqli_close($conn);
+  }
+?>
 <html>
 <!--- Google Material Design API-->
 <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
@@ -9,6 +47,32 @@
     margin-left: 40px;
   }
 </style>
+<script type="text/javascript">
+  function validateEventForm() {
+    //validate date
+    var date = document.getElementById("date").value;
+    if(date.length != 8) {
+      alert('Date not valid! (must contain exactly 8 numbers: mmddyyy');
+      return false;
+    } 
+    var month = parseInt(date.substring(0,2));
+    if(month < 1 || month > 12) {
+      alert('Date not valid! (Invalid month)');
+      return false;
+    }
+    var day = parseInt(date.substring(2,4));
+    if(day < 1 || day > 31) {
+      alert('Date not valid! (Invalid day)');
+      return false;
+    }
+    var year = parseInt(date.substring(4,8));
+    if(year < 2017) {
+      alert('Date not valid! (must be a future date)');
+      return false;
+    }
+    return true;
+  }
+</script>
 <class="mdl-layout mdl-js-layout">
   <header class="mdl-layout__header mdl-layout__header--scroll">
     <div class="mdl-layout__header-row">
@@ -18,10 +82,10 @@
       <div class="mdl-layout-spacer"></div>
       <!-- Navigation -->
       <nav class="mdl-navigation">
-        <a class="mdl-navigation__link" href="index.html">Home</a>
-        <a class="mdl-navigation__link" href="event_page.html">View Events</a>
+        <a class="mdl-navigation__link" href="index.php">Home</a>
+        <a class="mdl-navigation__link" href="event_page.php">View Events</a>
         <a class="mdl-navigation__link" href="about.html">About</a>
-        <a class="mdl-navigation__link" href="sign_in.html">Sign In</a>
+        <a class="mdl-navigation__link" href="sign_in.php">Sign In</a>
       </nav>
     </div>
   </header>
@@ -35,42 +99,32 @@
   <h1>Create a New Event</h1>
     
     <!-- Simple Textfield -->
-    <form action="#">
+    <form action="create_event.php" method="post" onsubmit="return validateEventForm()">
       <div class="mdl-textfield mdl-js-textfield">
-        <input class="mdl-textfield__input" type="text" id="sample1">
-        <label class="mdl-textfield__label" for="sample1">Event name...</label>
+        <input class="mdl-textfield__input" type="text" id="name" name="name">
+        <label class="mdl-textfield__label" for="name">Event name </label>
       </div>
-    </form>
-   
-        <!-- Simple Textfield -->
-    <form action="#">
+      <br>
       <div class="mdl-textfield mdl-js-textfield">
-        <input class="mdl-textfield__input" type="text" id="sample1">
-        <label class="mdl-textfield__label" for="sample1">Description...</label>
+        <input class="mdl-textfield__input" type="text" pattern="-?[0-9]*(\.[0-9]+)?" id="date" name="date">
+        <label class="mdl-textfield__label" for="date">Event Date (mmddyyyy) </label>
+        <span class="mdl-textfield__error">Input is not a valid number!</span>
       </div>
-    </form>
-    <!-- Numeric Textfield -->
-    <form action="#">
+      <br>
       <div class="mdl-textfield mdl-js-textfield">
-        <input class="mdl-textfield__input" type="text" pattern="-?[0-9]*(\.[0-9]+)?" id="sample2">
-        <label class="mdl-textfield__label" for="sample2">Event Date...</label>
-        <span class="mdl-textfield__error">Input is not a number!</span>
+        <textarea class="mdl-textfield__input" type="text" rows= "3" id="description" name="description"></textarea>
+        <label class="mdl-textfield__label" for="description">Description </label>
       </div>
-    </form>
-    
-        <!-- Numeric Textfield -->
-    <form action="#">
-      <div class="mdl-textfield mdl-js-textfield">
-        <input class="mdl-textfield__input" type="text" pattern="-?[0-9]*(\.[0-9]+)?" id="sample2">
-        <label class="mdl-textfield__label" for="sample2">Event Time...</label>
-        <span class="mdl-textfield__error">Input is not a number!</span>
-      </div>
-    </form>
-      <!-- Colored FAB button -->
+      <br>
+       <!-- Colored FAB button -->
     <!-- Accent-colored raised button -->
-    <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent">
+    <button type="submit" id="submit_create" name="submit_create" class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent">
       Create
     </button>
+    <br>
+    <div><?php echo $signup_message ?> </div>
+    </form>
+     
   </div>
 </body>
 </html>

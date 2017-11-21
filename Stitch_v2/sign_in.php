@@ -1,7 +1,8 @@
 <?php
   include('login.php'); // Includes Login Script
+  
   if(isset($_SESSION['login_user'])){
-    header("location: profile.php");
+    #header("location: profile.php");
   }
 
   $array = array('apple','orange'); 
@@ -97,7 +98,7 @@
       <br>
         <!-- Colored FAB button -->
     <!-- Accent-colored raised button -->
-    <button name="submit_login" class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent">
+    <button type="submit" name="submit_login" class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent">
       Log In
     </button>
     <div> <?php echo $login_error ?> </div>
