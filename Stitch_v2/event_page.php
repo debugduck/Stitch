@@ -88,11 +88,11 @@
 <script type="text/javascript" src="utility.js"></script>
 <script type="text/javascript">
   var user = <?php echo json_encode($user); ?>;
+  var user_id= <?php echo json_encode($user_id); ?>;
   if(!checkUserLoggedIn(user)) {
     document.getElementById("message").innerHTML = "Must be logged in with valid Mason credentials to view Events!";
   }
-  var user_id= <?php echo json_encode($user_id); ?>;
-
+  
   var event_data = <?php echo json_encode($event_data); ?>;
   var event_ids = <?php echo json_encode($user_events); ?>;
 
