@@ -10,13 +10,15 @@
 	$event_names = Array();
 	$event_dates = Array();
 	$event_desc = Array();
+	$user_events = Array();
+
+	connectToMySQLDatabase();
 
 	// $dbname = 'formDB_test1';
 	// extractEmailsFromDB($dbname);
 	// var_dump($emails);
 	function extractEmailsFromDB() {
 		global $conn, $emails, $dbname;
-		connectToMySQLDatabase($dbname);
 		$result = mysqli_query($conn,"SELECT username FROM user_login_info");
 		if(!$result) {
 			return;
@@ -30,7 +32,6 @@
 
 	function extractEventData() {
 		global $dbname, $conn, $event_data, $event_names, $event_dates, $event_desc;
-		connectToMySQLDatabase($dbname);
 		$result = mysqli_query($conn,"SELECT * FROM events");
 		if(!$result) {
 			return;
@@ -43,6 +44,20 @@
 			$event_desc[] = $row['description'];
 		}
 
+	}
+
+	function extractUserEventData($user_id) {
+		global $dbname, $conn, $user_events;
+		$result = mysqli_query($conn,"SELECT event_id FROM user_events WHERE user_id='$user_id'");
+		if(!$result) {
+			die("Error with mysqli query: "+mysqli_error($conn));
+		} else {
+			// die("Error with mysqli query"); }
+			// $result = mysqli_fetch_all($result);
+			while($row=mysqli_fetch_assoc($result)) {
+				$user_events[] = $row['event_id'];
+			}
+		}
 	}
 
 	function connectToMySQLDatabase() {

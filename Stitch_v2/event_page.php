@@ -6,6 +6,7 @@
     $user = $_SESSION['login_user'];
     $user_id = $_SESSION['login_id'];
     extractEventData();
+    extractUserEventData($user_id);
   }
   
 ?>
@@ -75,17 +76,32 @@
 	</div>
 	<div id="events-body">
 	</div>
+  <div id="message"></div>
 </div>
+<script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
+  <script src="http://autocompletejs.com/releases/0.3.0/autocomplete-0.3.0.min.js"></script>
+  <link href="http://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css" rel="Stylesheet"></link>
+  <script
+        src="http://code.jquery.com/ui/1.12.1/jquery-ui.min.js"
+        integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU="
+        crossorigin="anonymous"></script>
 <script type="text/javascript" src="utility.js"></script>
 <script type="text/javascript">
   var user = <?php echo json_encode($user); ?>;
   if(!checkUserLoggedIn(user)) {
-    document.getElementById("events-body").innerHTML = "Must be logged in with valid Mason credentials to view Events!";
+    document.getElementById("message").innerHTML = "Must be logged in with valid Mason credentials to view Events!";
   }
   var user_id= <?php echo json_encode($user_id); ?>;
 
-
   var event_data = <?php echo json_encode($event_data); ?>;
+  var event_ids = <?php echo json_encode($user_events); ?>;
+
+  for(i in event_data) {
+    if($.inArray(event_data[i].id,event_ids) != -1) {
+      //current user has joined this event
+      console.log("current user has joined this event: "+event_data[i].name);
+    }
+  }
 
   var current_div = 0;
   console.log(event_data);
@@ -93,7 +109,7 @@
 	console.log(obj);
 	if(obj % 4 === 0 || current_div === 0) {
 		current_div += 1;
-		document.getElementById("events-body").innerHTML += "<div id=\"event-div-" + current_div + "\" class=\"mdl-grid\"></div>";
+		document.getElementById("message").innerHTML += "<div id=\"event-div-" + current_div + "\" class=\"mdl-grid\"></div>";
 	}
 	cardDiv = "<div class=\"mdl-cell mdl-cell--3-col mdl-cell--1-col-phone\" id=\"event-card-" + obj + "\"> <div class=\"demo-card-wide mdl-card mdl-shadow--2dp\"> <div class=\"mdl-card__title\"> </div> <div class=\"mdl-card__supporting-text\" id=\"event-text-" + obj + "\"> </div> <div class=\"mdl-card__actions mdl-card--border\" id=\"event-actions-" + obj + "\"> <button id=\"expand-btn-" + obj + "\" onClick=\"showDetails(this)\"class=\"mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect \" value=\"" + obj + "\"> <i class=\"material-icons\">expand_more</i></button></div> <div class=\"mdl-card__menu\"> <button class=\"mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect\"> <i class=\"material-icons\">share</i> </button> </div> </div> </div>";
 	document.getElementById("event-div-" + current_div).innerHTML += cardDiv;
@@ -105,25 +121,34 @@
 	console.log("Card number: " + element.value);
 	document.getElementById("expand-btn-" + element.value).style.display = 'none';
 	expandLess = "<button id=\"expand-less-btn-" + element.value + "\" onClick=\"hideDetails(this)\"class=\"mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect \" value=\"" + element.value + "\"> <i class=\"material-icons\">expand_less</i></button>";
-	document.getElementById("event-actions-" + element.value).innerHTML += "Details:" + '<br>' + event_data[element.value].description + '<br><br>' + expandLess + "<button onClick=\"joinEvent("+element.value+")\"class=\"join-button mdl-button mdl-js-button mdl-button--accent mdl-button--raised mdl-js-ripple-effect\"> Join </button>";
+	document.getElementById("event-actions-" + element.value).innerHTML += "Details:" + '<br>' + event_data[element.value].description + '<br><br>' + expandLess + "<button id=\"join-"+element.value+"\" value=\""+element.value+"\"onClick=\"joinEvent("+element.value+")\"class=\"join-button mdl-button mdl-js-button mdl-button--accent mdl-button--raised mdl-js-ripple-effect\"> Join </button>";
   }
   
   function hideDetails(element) {
 	console.log(element.value);
 	expandMore = "<button id=\"expand-btn-" + element.value + "\" onClick=\"showDetails(this)\"class=\"mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect \" value=\"" + element.value + "\"> <i class=\"material-icons\">expand_more</i></button>";
 	document.getElementById("event-actions-" + element.value).innerHTML = expandMore;
-	
   }
 
   function joinEvent(val){
+    console.log(val);
     console.log(event_data[val].id);
-    console.log(event_data[val].name);
-    console.log(user_id)
+    var eventId = event_data[val].id;
+    //console.log(event_data[val].name);
+    //console.log(user_id)
     // joinUser($user_id,$event_id);
+    $.ajax({
+      type: "POST",
+      url: "join_event.php",
+      data: { event_id: event_data[val].id}
+    }).done(function( msg ) {
+      console.log("event joined! " + msg);
+      $("#message").innerHTML = "Succesffully joined event! " + msg;
+});    
   }
 
   //var event_names = <?php echo json_encode($event_names); ?>;
   //console.log(event_names);
-</script>
-</body>
+</script> 
+</body> 
 </html>

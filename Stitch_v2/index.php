@@ -21,7 +21,7 @@
         <a class="mdl-navigation__link" href="index.php">Home</a>
         <a class="mdl-navigation__link" href="event_page.php">View Events</a>
         <a class="mdl-navigation__link" href="about.html">About</a>
-        <a class="mdl-navigation__link" href="sign_in.php">Sign In</a>
+        <a id="sign_in" class="mdl-navigation__link" href="sign_in.php">Sign In</a>
       </nav>
     </div>
   </header>
@@ -36,7 +36,6 @@
   <h4>Stitch is an event management system to help you connect with other students at George Mason University.</h4>
   <h5> As a commuter school, many people feel left out of the loop. </h5>
   <h5> We've created a way for you to include others in your events, no matter how formal or informal.</h5>
-    
       <!-- Colored FAB button -->
     <!-- Accent-colored raised button -->
     <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent" onclick="window.location.href='sign_up.php'">

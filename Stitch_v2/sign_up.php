@@ -2,28 +2,26 @@
   $signup_message = '';
   include "connect_db.php";
   if(isset($_POST['submit_signup'])) {
-    connectToMySQLDatabase();
-  //Retrieve data from form
-  #$firstname = $_POST["firstname"];
-  #$lastname = $_POST['lastname'];
-  $email = $_POST['email'];
-  $username = substr($email,0,strrpos($email,"@"));
-  $password = $_POST['password'];
-  $password_encrypted = md5($_POST['password']);
-  #echo $email; 
-  $table_name = 'user_login_info';
-  //Insert data into table if it doe not already exist
-  $query = "SELECT * from $table_name where username ='$username'";
-  $result = mysqli_query($conn, $query);
-  #var_dump($result);
-  if(!$result) {
+    //Retrieve data from form
+    #$firstname = $_POST["firstname"];
+    #$lastname = $_POST['lastname'];
+    $email = $_POST['email'];
+    $username = substr($email,0,strrpos($email,"@"));
+    $password = $_POST['password'];
+    $password_encrypted = md5($_POST['password']);
+    #echo $email; 
+    $table_name = 'user_login_info';
+    //Insert data into table if it doe not already exist
+    $query = "SELECT * from $table_name where username ='$username'";
+    $result = mysqli_query($conn, $query);
+    #var_dump($result);
+    if(!$result) {
       $signup_message = "Error accessing table $table_name: ".mysqli_error($conn);
-  } else if (mysqli_num_rows($result) > 0)
-  {
-    $signup_message = "There is already an acocunt associated with this e-mail address: $email";
-  } else {
-    $query = "INSERT INTO $table_name (username,password) 
-          VALUES ('$username','$password')";
+    } else if (mysqli_num_rows($result) > 0) {
+      $signup_message = "There is already an acocunt associated with this e-mail address: $email";
+    } else {
+      $query = "INSERT INTO $table_name (username,password) 
+           VALUES ('$username','$password')";
     $result = mysqli_query($conn, $query);
     if(!$result) {
       $signup_message = "Error inserting user info into database: ".mysqli_error($conn);
@@ -91,7 +89,7 @@
         <a class="mdl-navigation__link" href="index.php">Home</a>
         <a class="mdl-navigation__link" href="event_page.php">View Events</a>
         <a class="mdl-navigation__link" href="about.html">About</a>
-        <a class="mdl-navigation__link" href="sign_in.php">Sign In</a>
+        <a id="sign_in" class="mdl-navigation__link" href="sign_in.php">Sign In</a>
       </nav>
     </div>
   </header>
