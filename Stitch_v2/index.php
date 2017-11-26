@@ -24,7 +24,7 @@
   <header class="mdl-layout__header mdl-layout__header--scroll">
     <div class="mdl-layout__header-row">
       <!-- Title -->
-      <span class="mdl-layout-title">Stitch</span>
+      <span class="mdl-layout-title" id="header">Stitch</span>
       <!-- Add spacer, to align navigation to the right -->
       <div class="mdl-layout-spacer"></div>
       <!-- Navigation -->
@@ -49,7 +49,7 @@
   <h5> We've created a way for you to include others in your events, no matter how formal or informal.</h5>
       <!-- Colored FAB button -->
     <!-- Accent-colored raised button -->
-    <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent" onclick="window.location.href='sign_up.php'">
+    <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent" id="get-started" onclick="window.location.href='sign_up.php'">
       Get Started
     </button>
   </div>
@@ -58,8 +58,8 @@
 <script type="text/javascript">
   var user = <?php echo json_encode($user); ?>;
   var user_id= <?php echo json_encode($user_id); ?>;
-  if(!checkUserLoggedIn(user)) {
-    //
+  if(checkUserLoggedIn(user)) {
+    document.getElementById("get-started").remove();
   }
 </script>
 </html>
