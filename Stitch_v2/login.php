@@ -25,6 +25,7 @@
 			if($password == $row['password']) {
 				//Login succesful! time to set session :)
 				$_SESSION['login_user'] = $row['username']; //initializing session
+				$_SESSION['login_id'] = $row['id'];
 				header("location: event_page.php"); // Redirecting to profile page
 			} else {
 				$login_error = 'Incorrect password!';

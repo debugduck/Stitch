@@ -4,9 +4,10 @@
   $user = "";
   if(isset($_SESSION['login_user'])){
     $user = $_SESSION['login_user'];
+    $user_id = $_SESSION['login_id'];
     extractEventData();
   }
-  #echo json_encode($event_names);
+  
 ?>
 <html>
 <!--- Google Material Design API-->
@@ -81,8 +82,11 @@
   if(!checkUserLoggedIn(user)) {
     document.getElementById("events-body").innerHTML = "Must be logged in with valid Mason credentials to view Events!";
   }
+  var user_id= <?php echo json_encode($user_id); ?>;
+
 
   var event_data = <?php echo json_encode($event_data); ?>;
+
   var current_div = 0;
   console.log(event_data);
   for(obj in event_data) {
@@ -113,7 +117,9 @@
 
   function joinEvent(val){
     console.log(event_data[val].id);
-    //join event
+    console.log(event_data[val].name);
+    console.log(user_id)
+    // joinUser($user_id,$event_id);
   }
 
   //var event_names = <?php echo json_encode($event_names); ?>;
