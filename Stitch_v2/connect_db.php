@@ -1,5 +1,5 @@
 <?php
-	$dbname = "stich_db1";
+	$dbname = "stich_db2";
 	$servername = "localhost";
 	$username = "root";
 	$password_root = "";

@@ -24,7 +24,7 @@ if(!$result) {
   
     $result = mysqli_query($conn, $query);
     if(!$result) {
-      return "error in query";
+      die("error in query: ".mysqli_error($conn));
     } else {
       $message = "Event joined successfully!";
     }
