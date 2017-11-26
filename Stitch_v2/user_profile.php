@@ -1,7 +1,7 @@
 <?php
   include "connect_db.php";
   session_start();
-  $user = "";
+  $user = ""; $user_id = "";
   if(isset($_SESSION['login_user'])){
     $user = $_SESSION['login_user'];
     $user_id = $_SESSION['login_id'];
@@ -26,7 +26,7 @@
       <nav class="mdl-navigation">
         <a class="mdl-navigation__link" href="index.php">Home</a>
         <a class="mdl-navigation__link" href="event_page.php">View Events</a>
-        <a class="mdl-navigation__link" href="about.html">About</a>
+        <a class="mdl-navigation__link" id ="profile" href="about.html">About</a>
         <a id="sign_in" class="mdl-navigation__link" href="sign_in.php">Sign In</a>
       </nav>
     </div>
@@ -50,6 +50,11 @@
         crossorigin="anonymous"></script>
 <script type="text/javascript" src="utility.js"></script>
 <script type="text/javascript">
+	var user = <?php echo json_encode($user); ?>;
+	var user_id= <?php echo json_encode($user_id); ?>;
+	if(!checkUserLoggedIn(user)) {
+      document.getElementById("message").innerHTML = "Must be logged in with valid Mason credentials to view Events!";
+	}
 	document.getElementById("profile-body").innerHTML += "hello ";
 	var user_id= <?php echo json_encode($user_id); ?>;
 	document.getElementById("profile-body").innerHTML += user_id;

@@ -31,7 +31,7 @@
       <nav class="mdl-navigation">
         <a class="mdl-navigation__link" href="index.php">Home</a>
         <a class="mdl-navigation__link" href="event_page.php">View Events</a>
-        <a class="mdl-navigation__link" href="about.html">About</a>
+        <a class="mdl-navigation__link" id="profile" href="about.html">About</a>
         <a id="sign_in" class="mdl-navigation__link" href="sign_in.php">Sign In</a>
       </nav>
     </div>
