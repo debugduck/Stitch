@@ -7,7 +7,8 @@
     $user_id = $_SESSION['login_id'];
     extractEventData();
     extractUserEventData($user_id);
-  }  
+  }
+  
 ?>
 <html>
 <!--- Google Material Design API-->
@@ -15,6 +16,11 @@
 <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.green-amber.min.css">
 <script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
 <head>
+<style>
+.profile-body {
+	margin-left: 50px;
+}
+</style>
 <class="mdl-layout mdl-js-layout">
   <header class="mdl-layout__header mdl-layout__header--scroll">
     <div class="mdl-layout__header-row">
@@ -53,11 +59,11 @@
 	var user = <?php echo json_encode($user); ?>;
 	var user_id= <?php echo json_encode($user_id); ?>;
 	if(!checkUserLoggedIn(user)) {
-      document.getElementById("message").innerHTML = "Must be logged in with valid Mason credentials to view Events!";
+      document.getElementById("message").innerHTML = "Must be logged in with valid Mason credentials to view profile!";
 	}
-	document.getElementById("profile-body").innerHTML += "hello ";
-	var user_id= <?php echo json_encode($user_id); ?>;
-	document.getElementById("profile-body").innerHTML += user_id;
+	document.getElementById("profile-body").innerHTML += "<h2>" + user + "</h2>";
+	document.getElementById("profile-body").innerHTML += "<h4>George Mason University</h4><br /><br /><br />";
+	document.getElementById("profile-body").innerHTML += "<h3>" + user + " has joined these events: <br /></h3>";	
 	
     var event_data = <?php echo json_encode($event_data); ?>;
     var event_ids = <?php echo json_encode($user_events); ?>;
@@ -65,7 +71,8 @@
 	for(i in event_data) {
       if($.inArray(event_data[i].id,event_ids) != -1) {
         //current user has joined this event
-        console.log("current user has joined this event: "+event_data[i].name);
+        //console.log("current user has joined this event: "+event_data[i].name);
+		document.getElementById("profile-body").innerHTML += "<h5>" + event_data[i].name + "</h5>";
       }
     }
 </script>

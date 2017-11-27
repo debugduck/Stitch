@@ -42,7 +42,7 @@
 </div>
 </head>
 <body>
-  <div class="div1">
+  <div class="div1" id="div1">
   <h1>Stitching GMU Together</h1>
   <h4>Stitch is an event management system to help you connect with other students at George Mason University.</h4>
   <h5> As a commuter school, many people feel left out of the loop. </h5>
@@ -60,6 +60,12 @@
   var user_id= <?php echo json_encode($user_id); ?>;
   if(checkUserLoggedIn(user)) {
     document.getElementById("get-started").remove();
+	document.getElementById("div1").innerHTML = "<h1> Hello, " + user + "!</h1>"; 
+	document.getElementById("div1").innerHTML += "<h4>Check out what other students are doing and join some events.</h4>";
+	joinEvents = "<button onClick=\"window.location.href=\'event_page.php\'\"class=\"mdl-button mdl-js-button mdl-button--raised mdl-button--accent \">View Events</button>";
+	document.getElementById("div1").innerHTML += joinEvents;
+	
+	
   }
 </script>
 </html>
