@@ -8,7 +8,6 @@
     extractEventData();
     extractUserEventData($user_id);
   }
-  
 ?>
 <html>
 <!--- Google Material Design API-->
@@ -89,6 +88,8 @@
 <script type="text/javascript">
   var user = <?php echo json_encode($user); ?>;
   var user_id= <?php echo json_encode($user_id); ?>;
+  //console.log(user);
+  checkUserLoggedIn(user);
   if(!checkUserLoggedIn(user)) {
     document.getElementById("message").innerHTML = "Must be logged in with valid Mason credentials to view Events!";
   }

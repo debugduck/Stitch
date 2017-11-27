@@ -13,18 +13,13 @@
 	$user_events = Array();
 
 	connectToMySQLDatabase();
-
-	// $dbname = 'formDB_test1';
-	// extractEmailsFromDB($dbname);
-	// var_dump($emails);
+	
 	function extractEmailsFromDB() {
 		global $conn, $emails, $dbname;
 		$result = mysqli_query($conn,"SELECT username FROM user_login_info");
 		if(!$result) {
-			return;
+			die("Error with mysqli query: "+mysqli_error($conn));
 		}
-		// die("Error with mysqli query"); }
-		// $result = mysqli_fetch_all($result);
 		while($row=mysqli_fetch_assoc($result)) {
 			$emails[] = $row['username']."@gmu.edu";
 		}

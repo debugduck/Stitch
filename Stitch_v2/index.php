@@ -5,8 +5,6 @@
   if(isset($_SESSION['login_user'])){
     $user = $_SESSION['login_user'];
     $user_id = $_SESSION['login_id'];
-    extractEventData();
-    extractUserEventData($user_id);
   }
 ?>
 <html>
@@ -64,8 +62,6 @@
 	document.getElementById("div1").innerHTML += "<h4>Check out what other students are doing and join some events.</h4>";
 	joinEvents = "<button onClick=\"window.location.href=\'event_page.php\'\"class=\"mdl-button mdl-js-button mdl-button--raised mdl-button--accent \">View Events</button>";
 	document.getElementById("div1").innerHTML += joinEvents;
-	
-	
   }
 </script>
 </html>
