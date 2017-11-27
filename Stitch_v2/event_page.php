@@ -44,14 +44,14 @@
   <header class="mdl-layout__header mdl-layout__header--scroll">
     <div class="mdl-layout__header-row">
       <!-- Title -->
-      <span class="mdl-layout-title" href="index.html" id="header">Stitch</span>
+      <span id="header" class="mdl-layout-title" href="index.html" id="header">Stitch</span>
       <!-- Add spacer, to align navigation to the right -->
       <div class="mdl-layout-spacer"></div>
       <!-- Navigation -->
       <nav class="mdl-navigation">
         <a class="mdl-navigation__link" href="index.php">Home</a>
         <a class="mdl-navigation__link" href="event_page.php">View Events</a>
-        <a class="mdl-navigation__link" id="profile" href="about.html">About</a>
+        <a id="profile" class="mdl-navigation__link" id="profile" href="about.html">About</a>
         <a id="sign_in" class="mdl-navigation__link" href="sign_in.php">Sign In</a>
       </nav>
     </div>
@@ -96,12 +96,7 @@
   var event_data = <?php echo json_encode($event_data); ?>;
   var event_ids = <?php echo json_encode($user_events); ?>;
 
-  for(i in event_data) {
-    if($.inArray(event_data[i].id,event_ids) != -1) {
-      //current user has joined this event
-      console.log("current user has joined this event: "+event_data[i].name);
-    }
-  }
+
 
   var current_div = 0;
   console.log(event_data);
@@ -128,6 +123,14 @@
 	console.log(element.value);
 	expandMore = "<button id=\"expand-btn-" + element.value + "\" onClick=\"showDetails(this)\"class=\"mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect \" value=\"" + element.value + "\"> <i class=\"material-icons\">expand_more</i></button>";
 	document.getElementById("event-actions-" + element.value).innerHTML = expandMore;
+  }
+
+  for(i in event_data) {
+    if($.inArray(event_data[i].id,event_ids) != -1) {
+      //current user has joined this event
+      //console.log("current user has joined this event: "+event_data[i].name);
+      //document.getElementById("join-"+i).disabled = true;
+    }
   }
 
   function joinEvent(val){

@@ -61,14 +61,14 @@
   <header class="mdl-layout__header mdl-layout__header--scroll">
     <div class="mdl-layout__header-row">
       <!-- Title -->
-      <span class="mdl-layout-title">Stitch</span>
+      <span id="header" class="mdl-layout-title">Stitch</span>
       <!-- Add spacer, to align navigation to the right -->
       <div class="mdl-layout-spacer"></div>
       <!-- Navigation -->
       <nav class="mdl-navigation">
         <a class="mdl-navigation__link" href="index.php">Home</a>
         <a class="mdl-navigation__link" href="event_page.php">View Events</a>
-        <a class="mdl-navigation__link" id="profile" href="about.html">About</a>
+        <a id="profile" class="mdl-navigation__link" id="profile" href="about.html">About</a>
         <a id="sign_in" class="mdl-navigation__link" href="sign_in.php">Sign In</a>
       </nav>
     </div>
