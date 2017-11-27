@@ -114,10 +114,14 @@
   }
   
   function showDetails(element) {
-	console.log("Card number: " + element.value);
+	//console.log("Card number: " + element.value);
 	document.getElementById("expand-btn-" + element.value).style.display = 'none';
 	expandLess = "<button id=\"expand-less-btn-" + element.value + "\" onClick=\"hideDetails(this)\"class=\"mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect \" value=\"" + element.value + "\"> <i class=\"material-icons\">expand_less</i></button>";
 	document.getElementById("event-actions-" + element.value).innerHTML += "Details:" + '<br>' + event_data[element.value].description + '<br><br>' + expandLess + "<button id=\"join-"+element.value+"\" value=\""+element.value+"\"onClick=\"joinEvent("+element.value+")\"class=\"join-button mdl-button mdl-js-button mdl-button--accent mdl-button--raised mdl-js-ripple-effect\"> Join </button>";
+    //console.log("join-"+element.value);
+    if($.inArray(event_data[element.value].id,event_ids) != -1) {
+      document.getElementById("join-"+element.value).disabled = true;
+    }
   }
   
   function hideDetails(element) {
@@ -130,7 +134,6 @@
     if($.inArray(event_data[i].id,event_ids) != -1) {
       //current user has joined this event
       //console.log("current user has joined this event: "+event_data[i].name);
-      //document.getElementById("join-"+i).disabled = true;
     }
   }
 
@@ -148,11 +151,8 @@
     }).done(function( msg ) {
       console.log("event joined! " + msg);
       $("#message").innerHTML = "Succesffully joined event! " + msg;
-});    
+  });    
   }
-
-  //var event_names = <?php echo json_encode($event_names); ?>;
-  //console.log(event_names);
 </script> 
 </body> 
 </html>
