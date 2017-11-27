@@ -80,7 +80,7 @@
 </head>
 <body>
   <div class="div1">
-  <h1>Welcome back!</h1>
+  <h1>Sign in </h1>
     
     <!-- Simple Textfield -->
     <form action="sign_in.php" method="post" onsubmit="return validateLoginForm()"> 
@@ -101,6 +101,9 @@
     <button type="submit" name="submit_login" class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent">
       Log In
     </button>
+    <br> 
+    Don't have an account? <a href="sign_up.php">Click here </a> to sign up! 
+    <br> 
     <div> <?php echo $login_error ?> </div>
     </form>
     

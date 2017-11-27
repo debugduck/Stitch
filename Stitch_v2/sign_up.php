@@ -1,5 +1,6 @@
 <?php
   $signup_message = '';
+  $success_message = '';
   include "connect_db.php";
   if(isset($_POST['submit_signup'])) {
     //Retrieve data from form
@@ -9,7 +10,6 @@
     $username = substr($email,0,strrpos($email,"@"));
     $password = $_POST['password'];
     $password_encrypted = md5($_POST['password']);
-    #echo $email; 
     $table_name = 'user_login_info';
     //Insert data into table if it doe not already exist
     $query = "SELECT * from $table_name where username ='$username'";
@@ -26,7 +26,8 @@
     if(!$result) {
       $signup_message = "Error inserting user info into database: ".mysqli_error($conn);
     } else {
-      $signup_message = "Sign up successfull!";
+      $signup_message = "";
+      $success_message = "Sign up successfull!";
     }
   }
   mysqli_close($conn);
@@ -43,13 +44,19 @@
   .div1 {
     margin-left: 40px;
   }
+  #error {
+    color: red;
+  }
+  #success {
+    color: green;
+  }
 </style>
 <script type="text/javascript">
   function validateSignupForm() {
     //validate email address
     if(!validateEmail(document.getElementById("email").value))
     {
-      alert("You have entered an invalid email address!");
+      alert("You have entered an invalid/non-Mason email address!");
       return false;
     }
     //validate password
@@ -107,7 +114,7 @@
     <form action="sign_up.php" method="post" onsubmit="return validateSignupForm()">
       <div class="mdl-textfield mdl-js-textfield">
         <input class="mdl-textfield__input" type="text" id="email" name="email">
-        <label class="mdl-textfield__label" for="email">GMu email</label>
+        <label class="mdl-textfield__label" for="email">GMU email</label>
       </div>
       <br>
       <div class="mdl-textfield mdl-js-textfield">
@@ -122,13 +129,14 @@
         <span class="mdl-textfield__error">Input is not a valid password</span>
       </div>
       <br>
-        <!-- Colored FAB button -->
+    <div id="error"><?php echo $signup_message ?> </div>
+    <div id="success"><?php echo $success_message ?> </div>
+    <!-- Colored FAB button -->
     <!-- Accent-colored raised button -->
     <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent" id="submit_signup" name="submit_signup" type="submit">
-      Sign Up
+      Register
     </button>
     <br>
-    <div><?php echo $signup_message ?> </div>
     </form>
   </div>
 </body>
