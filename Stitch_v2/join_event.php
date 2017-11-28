@@ -29,6 +29,7 @@ if(!$result) {
       $message = "Event joined successfully!";
     }
   }
+  
   mysqli_close($conn);
   return "php message testing";
 ?>  

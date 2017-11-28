@@ -28,6 +28,9 @@
 .demo-card-wide > .mdl-card__menu {
   color: #fff;
 }
+.event-check {
+  color: green;
+}
 .events-heading {
 	margin-left: 50px;
 }
@@ -36,6 +39,9 @@
 }
 .mdl-grid {
 	margin-bottom: 50px;
+}
+.message {
+  margin-left: 50px;
 }
 </style>
 
@@ -73,9 +79,8 @@
 	</button>
 	</h1>
 	</div>
-	<div id="events-body">
-	</div>
-  <div id="message"></div>
+	<div id="events-body"> 	</div>
+  <div class="message" id="message"></div>
 </div>
 <script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
   <script src="http://autocompletejs.com/releases/0.3.0/autocomplete-0.3.0.min.js"></script>
@@ -91,7 +96,7 @@
   //console.log(user);
   checkUserLoggedIn(user);
   if(!checkUserLoggedIn(user)) {
-    document.getElementById("message").innerHTML = "Must be logged in with valid Mason credentials to view Events!";
+    document.getElementById("message").innerHTML = "<h4>Must be logged in with valid Mason credentials to view Events!</h4>";
   }
   
   var event_data = <?php echo json_encode($event_data); ?>;
@@ -139,18 +144,23 @@
 
   function joinEvent(val){
     console.log(val);
+    // Make sure to only add the check mark once
+    if(!document.getElementById("event-check-" + val)) {
+      document.getElementById("event-text-" + val).innerHTML += "<div class=\"event-check\" id=\"event-check-" + val + "\"> &#10004 Event successfully joined</div>";
+    }
     console.log(event_data[val].id);
     var eventId = event_data[val].id;
-    //console.log(event_data[val].name);
-    //console.log(user_id)
-    // joinUser($user_id,$event_id);
     $.ajax({
       type: "POST",
       url: "join_event.php",
       data: { event_id: event_data[val].id}
     }).done(function( msg ) {
       console.log("event joined! " + msg);
-      $("#message").innerHTML = "Succesffully joined event! " + msg;
+      $("#message").innerHTML = "Succesfsully joined event! " + msg;
+      document.getElementById("join-"+val).disabled = true;
+      if($.inArray(eventId,event_ids) == -1) {
+        event_ids.push(eventId);
+      }
   });    
   }
 </script> 
