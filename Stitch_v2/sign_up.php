@@ -27,7 +27,7 @@
       $signup_message = "Error inserting user info into database: ".mysqli_error($conn);
     } else {
       $signup_message = "";
-      $success_message = "Sign up successfull!";
+      $success_message = "Sign up successful!";
     }
   }
   mysqli_close($conn);
